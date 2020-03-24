@@ -1,10 +1,14 @@
 #include <utility>
 #include <iostream>
 #include <cmath>
+#include <concepts>
 #include "fwd.hpp"
+#include <concepts>
 
 namespace geometry
-{
+{   
+template <class T>
+concept integral = std::is_integral<T>::value;
 
 template <typename T = int>
 struct Point
@@ -16,7 +20,7 @@ struct Point
     T Y() { return p.second; }
 
     /*Baseline Constructor*/
-    Point(T x, T y)
+    Point(T x, T y) requires integral<T>
     {
         this->operator()(x, y);
     }
@@ -59,7 +63,6 @@ auto distance(Point<T> &p1, Point<T> &p2 = Origin)
     return p1.distance(p2);
 }
 
-
 /* Return 0 if all are co-linear,
 1 for clockwise,
 2for anti-clockwise*/
@@ -72,19 +75,22 @@ int orientation(Point<T> p, Point<U> q, Point<V> r)
 
 // Checks if three points are co-linear
 template <typename T, typename U, typename V>
-bool is_colinear(Point<T> p, Point<U> q, Point<V> r){
-    return orientation(p,q,r)==0;
+bool is_colinear(Point<T> p, Point<U> q, Point<V> r)
+{
+    return orientation(p, q, r) == 0;
 };
 
 //Checks if three points are clockwise
 template <typename T, typename U, typename V>
-bool is_clockwise(Point<T> p, Point<U> q, Point<V> r){
-    return orientation(p,q,r)==1;
+bool is_clockwise(Point<T> p, Point<U> q, Point<V> r)
+{
+    return orientation(p, q, r) == 1;
 };
 
 //Checks if three points are anti-clockwise
 template <typename T, typename U, typename V>
-bool is_anti_clockwise(Point<T> p, Point<U> q, Point<V> r){
-    return !is_clockwise(p,q,r);
+bool is_anti_clockwise(Point<T> p, Point<U> q, Point<V> r)
+{
+    return !is_clockwise(p, q, r);
 };
 } // namespace geometry

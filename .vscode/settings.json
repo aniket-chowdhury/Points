@@ -63,6 +63,9 @@
         "variant": "cpp",
         "bit": "cpp",
         "concepts": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "compare": "cpp",
+        "ranges": "cpp",
+        "stop_token": "cpp"
     }
 }
